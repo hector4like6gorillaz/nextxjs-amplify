@@ -1,0 +1,8 @@
+/*---Configuraciones de spacing y similares customizadas---*/
+
+@theme {
+  --spacing-spacing-0.5-r: 0.5rem;
+  --spacing-spacing-1-r: 1rem;
+  --spacing-spacing-1.5-r: 1.5rem;
+  --spacing-spacing-2-r: 2rem;
+}

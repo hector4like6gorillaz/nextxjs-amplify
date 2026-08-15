@@ -1,0 +1,89 @@
+/* driverTheme.css */
+
+/* Cambiar popover */
+.driver-popover {
+  background-color: #ffffff !important; /* gris oscuro */
+  color: #ffffff !important;
+  border-radius: 10px !important;
+  padding: 20px !important;
+  border: 2px solid var(--color-primary) !important;
+}
+
+/* Título */
+.driver-popover-title {
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  color: var(--color-black-400) !important;
+}
+
+/* Descripción */
+.driver-popover-description {
+  font-size: 14px !important;
+  color: var(--color-black-400) !important;
+}
+
+/* Botones */
+.driver-popover-footer button {
+  all: unset !important;
+  background-color: var(--color-primary) !important; /* azul */
+  color: #ffffff !important;
+  font-family: 'BariolRegular' !important;
+  border-radius: 1rem !important;
+  padding: 6px 10px !important;
+  border: none !important;
+  font-size: 12px !important;
+  margin-left: 0.2rem !important;
+}
+
+.driver-popover-footer button:hover {
+  background-color: var(--color-primary-300) !important; /* Color del boton */
+}
+
+/* Botón disabled */
+.driver-popover-footer .driver-popover-btn-disabled {
+  background-color: #4b5563 !important;
+  opacity: 0.6 !important;
+}
+
+/* Progreso "1 de n" */
+.driver-popover-progress-text {
+  color: var(--color-primary) !important;
+  font-size: 12px !important;
+}
+
+/* Botón cerrar */
+.driver-popover-close-btn {
+  color: #9ca3af !important;
+}
+
+.driver-popover-close-btn:hover {
+  color: #fff !important;
+}
+
+.driver-skip-btn {
+  padding: 6px 10px !important;
+  font-size: 12px !important;
+  background: var(--color-primary-100) !important;
+  color: #fff !important;
+  border-radius: 1rem !important;
+  cursor: pointer !important;
+}
+
+.driver-skip-btn:hover {
+  opacity: 0.8 !important;
+}
+
+/* Fix de fuentes borrosas */
+.driver-popover,
+.driver-popover * {
+  font-family: 'BariolRegular' !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-rendering: optimizeLegibility !important;
+  backface-visibility: hidden !important;
+}
+
+/* Evitar transformaciones que causan blur */
+.driver-popover {
+  transform: none !important;
+}

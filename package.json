@@ -9,12 +9,26 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@azure/msal-browser": "^4.30.0",
+    "@reduxjs/toolkit": "^2.12.0",
+    "antd": "^6.6.0",
+    "axios": "^1.19.0",
+    "crypto-js": "^4.2.0",
+    "dayjs": "^1.11.21",
+    "driver.js": "^1.8.0",
+    "localforage": "^1.10.0",
     "next": "16.3.1",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "react-icons": "^5.7.0",
+    "react-query": "^3.39.3",
+    "react-redux": "^9.3.0",
+    "react-toastify": "^11.1.0",
+    "rxjs": "^7.8.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/crypto-js": "^4.2.2",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

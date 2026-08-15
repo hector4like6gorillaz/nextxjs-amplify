@@ -1,0 +1,10 @@
+/*----------Breakpoints o media queryes----------*/
+/*----------600px  tablet----------*/
+/*----------1200px desktop---------*/
+/*----------1920px ultrawide-------*/
+
+@theme {
+  --breakpoint-tablet: 37.5rem;
+  --breakpoint-desktop: 75rem;
+  --breakpoint-ultrawide: 120rem;
+}

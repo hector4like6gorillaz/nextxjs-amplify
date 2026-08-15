@@ -1,0 +1,7 @@
+@import 'tailwindcss';
+@import './global.css';
+@import './theme.colors.css';
+@import './theme.spacing.css';
+@import './theme.media.css';
+@import './theme.font.css';
+@import './theme.shadow.css';
