@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import { templateFontVariables } from "./assets/fonts/fonts";
+import "./styles/index.css";
+import StoreProvider from "./store/StoreProvider";
 import QueryClientProviderWrapper from "./shared/http/query-client.provider";
 import MainNav from "./shared/components/main-nav/MainNav";
 
@@ -23,13 +25,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${templateFontVariables} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <QueryClientProviderWrapper>
-          <MainNav />
-          {children}
-        </QueryClientProviderWrapper>
+        <StoreProvider>
+          <QueryClientProviderWrapper>
+            <MainNav />
+            {children}
+          </QueryClientProviderWrapper>
+        </StoreProvider>
       </body>
     </html>
   );

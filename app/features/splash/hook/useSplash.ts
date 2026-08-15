@@ -26,9 +26,9 @@ const useSplash = () => {
     refetch()
   }
 
-  const location = useLocation()
+  const pathname = usePathname()
 
-  const isLoginRoute = location.pathname === mapRoutes.login
+  const isLoginRoute = pathname === mapRoutes.login
 
   useEffect(() => {
     if (isFetching) return

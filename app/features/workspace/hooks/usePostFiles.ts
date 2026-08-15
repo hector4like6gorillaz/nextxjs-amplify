@@ -17,7 +17,8 @@ const usePostFiles = ({
 }): IUsePostFiles => {
   const [dataState, setDataState] = useState<null | any[]>(null)
 
-  const { data, isLoading, isSuccess, isError, mutate } = usePostFilesExample()
+  const { data, isPending: isLoading, isSuccess, isError, mutate } =
+    usePostFilesExample()
 
   useEffect(() => {
     if (isLoading) return

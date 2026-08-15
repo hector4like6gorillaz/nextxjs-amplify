@@ -27,7 +27,7 @@
   all: unset !important;
   background-color: var(--color-primary) !important; /* azul */
   color: #ffffff !important;
-  font-family: 'BariolRegular' !important;
+  font-family: var(--font-BariolRegular) !important;
   border-radius: 1rem !important;
   padding: 6px 10px !important;
   border: none !important;
@@ -76,7 +76,7 @@
 /* Fix de fuentes borrosas */
 .driver-popover,
 .driver-popover * {
-  font-family: 'BariolRegular' !important;
+  font-family: var(--font-BariolRegular) !important;
   -webkit-font-smoothing: antialiased !important;
   -moz-osx-font-smoothing: grayscale !important;
   text-rendering: optimizeLegibility !important;

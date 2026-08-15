@@ -1,5 +1,5 @@
 import type { AxiosError } from 'axios'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 import { getUserInfo } from '~/features/splash/api/splash.service'
 import type { IBaseApi } from '~/interfaces/baseApi.interface'
 import type { CustomError } from '~/interfaces/errors.interface'

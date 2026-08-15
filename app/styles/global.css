@@ -8,52 +8,13 @@ body {
   box-sizing: border-box !important;
 }
 
-@font-face {
-  font-family: 'BariolBold';
-  src:
-    local('BariolBold'),
-    url('../assets/fonts/bariol/bariol_bold-webfont.ttf') format('TrueType');
-  font-weight: 700;
-}
-@font-face {
-  font-family: 'BariolRegular';
-  src:
-    local('BariolRegular'),
-    url('../assets/fonts/bariol/bariol_regular-webfont.ttf') format('TrueType');
-  font-weight: 700;
-}
-
-@font-face {
-  font-family: 'AktivBold';
-  src:
-    local('AktivBold'),
-    url('../assets/fonts/aktiv-grotesk/AktivGrotesk_Bd.ttf') format('TrueType');
-  font-weight: 700;
-}
-@font-face {
-  font-family: 'AktivBoldItalic';
-  src:
-    local('AktivBoldItalic'),
-    url('../assets/fonts/aktiv-grotesk/AktivGrotesk_BdIt.ttf') format('TrueType');
-  font-weight: 700;
-}
-@font-face {
-  font-family: 'AktivItalic';
-  src:
-    local('AktivItalic'),
-    url('../assets/fonts/aktiv-grotesk/AktivGrotesk_It.ttf') format('TrueType');
-  font-weight: 700;
-}
-@font-face {
-  font-family: 'AktivRegular';
-  src:
-    local('AktivRegular'),
-    url('../assets/fonts/aktiv-grotesk/AktivGrotesk_Rg.ttf') format('TrueType');
-  font-weight: 700;
-}
+/* Fonts are loaded via next/font/local (app/assets/fonts/fonts.ts) instead
+   of @font-face here — Next self-hosts and optimizes them, and exposes
+   each as a CSS variable consumed by the --font-* theme tokens below and
+   in theme.font.css. */
 
 * {
-  font-family: 'BariolRegular' !important;
+  font-family: var(--font-BariolRegular) !important;
 }
 
 button {

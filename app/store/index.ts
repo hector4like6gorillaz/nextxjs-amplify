@@ -3,15 +3,20 @@ import counterReducer from './reducers/counterSlice'
 import navigationReducer from './reducers/navigationSlice'
 import userReducer from './reducers/userSlice'
 
-export const store = configureStore({
-  reducer: {
-    counter: counterReducer,
-    navigation: navigationReducer,
-    user: userReducer,
-  },
-})
+// A store factory instead of a module-level singleton: the App Router can
+// render on the server, and a shared singleton would leak state between
+// requests there. StoreProvider calls this once per component tree.
+export const makeStore = () => {
+  return configureStore({
+    reducer: {
+      counter: counterReducer,
+      navigation: navigationReducer,
+      user: userReducer,
+    },
+  })
+}
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof store.getState>
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppDispatch = typeof store.dispatch
+export type AppStore = ReturnType<typeof makeStore>
+export type RootState = ReturnType<AppStore['getState']>
+export type AppDispatch = AppStore['dispatch']

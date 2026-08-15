@@ -1,10 +1,12 @@
+/* Values point at the CSS variables next/font/local generates in
+   app/assets/fonts/fonts.ts (applied on <html> in app/layout.tsx), so the
+   font-BariolBold / font-AktivBold / etc. Tailwind utilities resolve to the
+   actual self-hosted webfonts instead of a bare family-name string. */
 @theme {
-  --font-BariolBold: 'BariolBold';
-  --font-BariolRegular: 'BariolRegular';
-  --font-AktivBold: 'AktivBold';
-  --font-AktivBoldItalic: 'AktivBoldItalic';
-  --font-AktivItalic: 'AktivItalic';
-  --font-AktivRegular: 'AktivRegular';
-  
-  
+  --font-BariolBold: var(--font-bariol-bold);
+  --font-BariolRegular: var(--font-bariol-regular);
+  --font-AktivBold: var(--font-aktiv-bold);
+  --font-AktivBoldItalic: var(--font-aktiv-bold-italic);
+  --font-AktivItalic: var(--font-aktiv-italic);
+  --font-AktivRegular: var(--font-aktiv-regular);
 }

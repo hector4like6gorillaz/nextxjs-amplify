@@ -18,7 +18,7 @@ const useSetupTopicsSubscriptions = ({
     null | ICreateTopicsSubscriptions[]
   >(null)
 
-  const { data, isLoading, isSuccess, isError, mutate } =
+  const { data, isPending: isLoading, isSuccess, isError, mutate } =
     usePostSetupTopicsSubs()
 
   useEffect(() => {

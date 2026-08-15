@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 import type { IBaseApi, IPagination } from '~/interfaces/baseApi.interface'
 
 import type { AxiosError } from 'axios'
