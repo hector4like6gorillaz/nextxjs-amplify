@@ -1,450 +1,407 @@
-'use client'
-
-import { useEffect } from 'react'
+import Link from 'next/link'
 import {
-  FiShield,
-  FiDatabase,
-  FiLock,
-  FiSettings,
-  FiBox,
-  FiMap,
+  FiLayout,
+  FiCpu,
+  FiCode,
+  FiDroplet,
+  FiLayers,
+  FiRefreshCw,
+  FiSend,
+  FiGrid,
+  FiStar,
+  FiBell,
+  FiFolder,
+  FiGitBranch,
+  FiTerminal,
+  FiArrowRight,
   FiCheckCircle,
-  FiPieChart,
 } from 'react-icons/fi'
-import { useRouter } from 'next/navigation'
 import { mapRoutes } from '~/shared/routes/routesMap'
-import { getEnv } from '~/shared/utils/get-env.utils'
+
+const techStack = [
+  {
+    name: 'Next.js',
+    version: '16.3.1',
+    desc: 'App Router, file-based routing and the framework this template is built on.',
+    icon: <FiLayout className="h-6 w-6 text-primary" />,
+  },
+  {
+    name: 'React',
+    version: '19.2.8',
+    desc: 'UI library powering every component and hook in the app.',
+    icon: <FiCpu className="h-6 w-6 text-primary" />,
+  },
+  {
+    name: 'TypeScript',
+    version: '^5',
+    desc: 'Strict typing across services, hooks, and components.',
+    icon: <FiCode className="h-6 w-6 text-primary" />,
+  },
+  {
+    name: 'Tailwind CSS',
+    version: '^4',
+    desc: 'CSS-first theme in app/styles — colors, spacing, shadows, fonts, breakpoints.',
+    icon: <FiDroplet className="h-6 w-6 text-primary" />,
+  },
+  {
+    name: 'Redux Toolkit',
+    version: '^2.12.0',
+    desc: 'Global state via a per-request store factory, wired through StoreProvider.',
+    icon: <FiLayers className="h-6 w-6 text-primary" />,
+  },
+  {
+    name: 'TanStack Query',
+    version: '^5.101.4',
+    desc: 'Server-state caching, refetching, and loading/error states for every query.',
+    icon: <FiRefreshCw className="h-6 w-6 text-primary" />,
+  },
+  {
+    name: 'Axios',
+    version: '^1.19.0',
+    desc: 'The HTTP client every feature service is built on.',
+    icon: <FiSend className="h-6 w-6 text-primary" />,
+  },
+  {
+    name: 'Ant Design',
+    version: '^6.6.0',
+    desc: 'Component library available for tables, modals, and form controls.',
+    icon: <FiGrid className="h-6 w-6 text-primary" />,
+  },
+  {
+    name: 'React Icons',
+    version: '^5.7.0',
+    desc: 'Icon set used across the shared UI — this page included.',
+    icon: <FiStar className="h-6 w-6 text-primary" />,
+  },
+  {
+    name: 'React Toastify',
+    version: '^11.1.0',
+    desc: 'Global toast notifications, mounted once and usable from any hook.',
+    icon: <FiBell className="h-6 w-6 text-primary" />,
+  },
+]
+
+const architecture = [
+  {
+    title: 'app/features/<feature>/',
+    desc: 'api (service + query), hooks, interfaces, and a pages/<Feature>Module.tsx — the same shape for every feature.',
+    icon: <FiFolder className="h-5 w-5 text-primary" />,
+  },
+  {
+    title: 'app/shared/',
+    desc: 'Cross-feature building blocks: components, hooks, the Axios/query-client setup, storage, routes, and utils.',
+    icon: <FiFolder className="h-5 w-5 text-primary" />,
+  },
+  {
+    title: 'app/store/',
+    desc: 'The Redux Toolkit store factory and its App Router-safe provider.',
+    icon: <FiLayers className="h-5 w-5 text-primary" />,
+  },
+  {
+    title: 'app/styles/',
+    desc: 'Tailwind v4 theme tokens — colors, spacing, shadows, fonts, and breakpoints.',
+    icon: <FiDroplet className="h-5 w-5 text-primary" />,
+  },
+  {
+    title: 'app/interfaces/',
+    desc: 'Shared TypeScript contracts used across more than one feature.',
+    icon: <FiCode className="h-5 w-5 text-primary" />,
+  },
+  {
+    title: 'app/<route>/page.tsx',
+    desc: 'A thin route file that renders its feature’s Module component — routing stays separate from feature logic.',
+    icon: <FiGitBranch className="h-5 w-5 text-primary" />,
+  },
+]
+
+const dataFlow = [
+  { label: 'Component', detail: 'PokemonModule.tsx' },
+  { label: 'Hook', detail: 'usePokemon.ts' },
+  { label: 'Query', detail: 'pokemon.querys.ts' },
+  { label: 'Service', detail: 'pokemon.service.ts' },
+  { label: 'Axios / API', detail: 'SERVICE → PokeAPI' },
+]
+
+const commands = [
+  { cmd: 'npm run dev', desc: 'Start the Turbopack dev server' },
+  { cmd: 'npm run build', desc: 'Production build + type-check' },
+  { cmd: 'npm run start', desc: 'Serve the production build' },
+  { cmd: 'npm run lint', desc: 'Run ESLint' },
+]
 
 const HomeModule = () => {
-  const appEnv = getEnv('ENVIRONMENT')
-  const router = useRouter()
-
-  useEffect(() => {
-    if (appEnv == 'workspace') router.push(mapRoutes.workspace)
-  }, [appEnv])
-
-  const architecture = [
-    {
-      title: 'React Router v7',
-      desc: 'La evolución directa de Remix. Capacidades híbridas SSR/CSR y ejecución de lógica unificada en servidor y cliente.',
-      icon: <FiMap className="w-6 h-6 text-indigo-500" />,
-      bg: 'bg-indigo-50',
-    },
-    {
-      title: 'Runtime Config',
-      desc: 'Variables inyectadas en tiempo de ejecución (window.__ENV__) permitiendo una sola imagen Docker para todos los entornos.',
-      icon: <FiSettings className="w-6 h-6 text-blue-500" />,
-      bg: 'bg-blue-50',
-    },
-    {
-      title: 'Hybrid Auth (SSO)',
-      desc: 'Autenticación corporativa flexible lista para usar con Azure Active Directory (MSAL) o Google OAuth.',
-      icon: <FiShield className="w-6 h-6 text-cyan-500" />,
-      bg: 'bg-cyan-50',
-    },
-    {
-      title: 'Advanced Data Layer',
-      desc: 'Patrón API → Hooks → UI con Axios + React Query. Caché automático, re-fetching inteligente y control de estado.',
-      icon: <FiDatabase className="w-6 h-6 text-purple-500" />,
-      bg: 'bg-purple-50',
-    },
-    {
-      title: 'Secure Storage',
-      desc: 'Almacenamiento de tokens usando localForage (IndexedDB) asíncrono con cifrado AES mediante crypto-js.',
-      icon: <FiLock className="w-6 h-6 text-rose-500" />,
-      bg: 'bg-rose-50',
-    },
-    {
-      title: 'Strict Code Quality',
-      desc: 'Capa fuerte de validación con ESLint, SonarJS y Unicorn. Modo STRICT_LINT para prevenir fugas de memoria y dead-code.',
-      icon: <FiCheckCircle className="w-6 h-6 text-emerald-500" />,
-      bg: 'bg-emerald-50',
-    },
-    {
-      title: 'Data Visualization',
-      desc: 'Arquitectura preparada para Dashboards empresariales, integrando D3.js para métricas y gráficos interactivos.',
-      icon: <FiPieChart className="w-6 h-6 text-amber-500" />,
-      bg: 'bg-amber-50',
-    },
-    {
-      title: 'Container Ready',
-      desc: 'Diseñado desde cero para brillar en Docker y Kubernetes sin recompilar el código al cambiar de ambiente.',
-      icon: <FiBox className="w-6 h-6 text-sky-500" />,
-      bg: 'bg-sky-50',
-    },
-  ]
-
-  const techStack = [
-    {
-      name: 'React 19',
-      desc: 'Librería principal para interfaces de usuario concurrentes y modernas.',
-    },
-    {
-      name: 'React Router v7',
-      desc: 'Framework full-stack que maneja rutas, SSR, y fetching de datos.',
-    },
-    {
-      name: 'Redux Toolkit',
-      desc: 'Manejo predecible y tipado del estado global de la aplicación.',
-    },
-    {
-      name: 'React Query',
-      desc: 'Gestor asíncrono para caché, fetching y sincronización con el servidor.',
-    },
-    {
-      name: 'Vite v7',
-      desc: 'Empaquetador y servidor de desarrollo ultrarrápido con HMR.',
-    },
-    {
-      name: 'Tailwind v4',
-      desc: 'Framework CSS utility-first que no requiere archivos de configuración pesados.',
-    },
-    {
-      name: 'Ant Design',
-      desc: 'Librería de componentes UI empresariales (Tablas, Modales, DatePickers).',
-    },
-    {
-      name: 'Axios',
-      desc: 'Cliente HTTP configurado con interceptores para inyección automática de tokens.',
-    },
-    {
-      name: 'Azure / Google Auth',
-      desc: 'Integración MSAL y Google Identity para autenticación SSO corporativa.',
-    },
-    {
-      name: 'Driver.js',
-      desc: 'Librería ligera para crear tours interactivos y guiar a los usuarios.',
-    },
-    {
-      name: 'LocalForage',
-      desc: 'API asíncrona que mejora el localStorage usando IndexedDB o WebSQL.',
-    },
-    {
-      name: 'D3.js (Charts)',
-      desc: 'Motor gráfico de bajo nivel para crear visualizaciones de datos complejas.',
-    },
-  ]
-
   return (
-    <div className="relative min-h-screen overflow-hidden bg-slate-50 font-sans">
-      {/* Background Decorativo Abstracto */}
-      <div className="absolute top-0 -z-10 h-full w-full bg-slate-50 overflow-hidden">
-        <div className="absolute top-0 right-0 -translate-y-12 translate-x-1/3 w-150 h-150 rounded-full bg-indigo-200/40 blur-[100px]"></div>
-        <div className="absolute bottom-0 left-0 translate-y-1/3 -translate-x-1/3 w-125 h-125 rounded-full bg-blue-200/40 blur-[100px]"></div>
-      </div>
+    <div className="min-h-full bg-background text-text">
+      {/* Hero */}
+      <section className="relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 -z-10">
+          <div className="absolute -top-24 right-0 h-80 w-80 rounded-full bg-gradient-primary opacity-30 blur-[100px]" />
+          <div className="absolute bottom-0 left-0 h-72 w-72 rounded-full bg-gradient-secondary opacity-30 blur-[100px]" />
+        </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-20 relative z-10">
-        {/* Hero Section */}
-        <div className="text-center max-w-4xl mx-auto mb-20">
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-sm font-semibold tracking-wide mb-6 border border-indigo-200 shadow-sm cursor-default hover:bg-indigo-200 transition-colors">
+        <div className="mx-auto max-w-5xl px-6 py-20 text-center sm:py-28">
+          <span className="inline-flex items-center gap-2 rounded-full border border-primary-200 bg-primary-100 px-3 py-1 text-sm font-semibold text-primary">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
             </span>
-            Enterprise Level Architecture
+            App Router &middot; TypeScript &middot; Tailwind v4
           </span>
 
-          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-slate-900 mb-6">
-            React Router v7 <br className="hidden md:block" />
-            <span className="bg-clip-text text-transparent bg-linear-to-r from-blue-600 via-indigo-600 to-purple-600">
-              Corporate Template+
-            </span>
+          <h1 className="font-AktivBold! mt-6 text-4xl tracking-tight text-text sm:text-5xl md:text-6xl">
+            Next.js Template
           </h1>
 
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            Boilerplate diseñado para equipos de alto rendimiento. Incluye
-            validaciones estrictas (SonarJS), inyección de variables en runtime,
-            Data Fetching híbrido y autenticación corporativa escalable.
+          <p className="mx-auto mt-5 max-w-2xl text-lg text-secondary-500 sm:text-xl">
+            A production-ready foundation to start building.
           </p>
-        </div>
-        <div className="relative rounded-3xl p-8 md:p-12 bg-white/60 backdrop-blur-xl border border-white shadow-xl mb-20 overflow-hidden group">
-          <div className="absolute inset-0 bg-linear-to-br from-indigo-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-          <div className="relative z-10 grid md:grid-cols-12 gap-8 items-center">
-            <div className="md:col-span-4">
-              <h2 className="text-3xl font-bold text-slate-900 leading-tight">
-                ¿Por qué <br />
-                <span className="text-indigo-600">React Router v7?</span>
-              </h2>
-            </div>
-            <div className="md:col-span-8 text-slate-600 space-y-4 text-lg">
-              <p>
-                React Router v7 no es solo un manejador de rutas; absorbió la
-                arquitectura completa de <strong>Remix</strong>. Ahora es un
-                framework full-stack.
-              </p>
-              <p>
-                Aprovechamos ese poder para implementar un sistema híbrido que
-                elimina las pantallas blancas de carga (Cold Starts del
-                backend), inyecta variables nativas de Docker en tiempo de
-                ejecución y protege las vistas antes de que siquiera rendericen
-                en el navegador.
-              </p>
-            </div>
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-secondary-400">
+            This starter ships with a working App Router setup, global state,
+            server-state caching, a themed Tailwind v4 configuration, and one
+            fully wired example feature &mdash; so new features have a proven
+            pattern to follow from day one.
+          </p>
+
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Link
+              href={mapRoutes.pokemon}
+              className="shadow-button inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-500"
+            >
+              View the Pokémon example
+              <FiArrowRight className="h-4 w-4" />
+            </Link>
+            <a
+              href="https://github.com/hector4like6gorillaz/nextxjs-amplify"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg border border-secondary-200 px-5 py-3 text-sm font-semibold text-text transition-colors hover:bg-surface"
+            >
+              Repository
+            </a>
           </div>
         </div>
+      </section>
 
-        {/* Features Grid */}
-        <div className="mb-24">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {architecture.map((item, i) => (
+      <div className="mx-auto max-w-6xl px-6 pb-24">
+        {/* Tech stack */}
+        <section className="mb-20">
+          <div className="mb-10 text-center">
+            <h2 className="font-AktivBold! text-2xl text-text sm:text-3xl">
+              Tech Stack
+            </h2>
+            <p className="mt-2 text-secondary-400">
+              What&rsquo;s actually installed and wired into this template.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {techStack.map((tech) => (
               <div
-                key={i}
-                className="group relative bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                key={tech.name}
+                className="rounded-xl border border-secondary-200 bg-surface p-5 shadow-sm transition-shadow hover:shadow-md"
               >
-                <div
-                  className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 ${item.bg} group-hover:scale-110 transition-transform duration-300`}
-                >
+                <div className="mb-3 flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-100">
+                    {tech.icon}
+                  </div>
+                  <div>
+                    <p className="font-semibold text-text">{tech.name}</p>
+                    <p className="font-mono text-xs text-secondary-400">
+                      {tech.version}
+                    </p>
+                  </div>
+                </div>
+                <p className="text-sm leading-relaxed text-secondary-500">
+                  {tech.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Architecture */}
+        <section className="mb-20">
+          <div className="mb-10 text-center">
+            <h2 className="font-AktivBold! text-2xl text-text sm:text-3xl">
+              Architecture &amp; Project Structure
+            </h2>
+            <p className="mt-2 text-secondary-400">
+              The conventions every feature in this template follows.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-spacing-1-r tablet:grid-cols-2 desktop:grid-cols-3">
+            {architecture.map((item) => (
+              <div
+                key={item.title}
+                className="rounded-xl border border-secondary-200 bg-surface p-5"
+              >
+                <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-lg bg-primary-100">
                   {item.icon}
                 </div>
-                <h3 className="font-bold text-slate-900 text-lg mb-3 group-hover:text-indigo-600 transition-colors">
+                <p className="font-mono text-sm font-semibold text-text">
                   {item.title}
-                </h3>
-                <p className="text-slate-600 text-sm leading-relaxed">
+                </p>
+                <p className="mt-2 text-sm leading-relaxed text-secondary-500">
                   {item.desc}
                 </p>
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
-        {/* Dashboard / Gráficos Mockup Visual */}
-        <div className="mb-24">
-          <div className="bg-white rounded-3xl p-8 shadow-xl border border-slate-200 overflow-hidden relative">
-            <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-blue-500 via-indigo-500 to-purple-500"></div>
-
-            <div className="text-center mb-8 text-slate-800">
-              <h3 className="text-2xl font-bold">
-                Listos para Data Visualization
-              </h3>
-              <p className="text-slate-500 text-sm mt-1">
-                Estructura pensada para Dashboards y D3.js
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8 items-end h-48 max-w-3xl mx-auto px-4 border-b border-slate-100 pb-4">
-              {/* Barra 1 */}
-              <div className="group relative w-full flex flex-col items-center justify-end h-full">
-                <div className="w-full bg-blue-100 rounded-t-lg h-[40%] group-hover:h-[50%] transition-all duration-500 relative overflow-hidden">
-                  <div className="absolute bottom-0 w-full bg-blue-500 h-full origin-bottom transform scale-y-100 opacity-80"></div>
-                </div>
-                <span className="text-xs text-slate-400 mt-2 font-medium uppercase tracking-wider">
-                  Métricas
-                </span>
-              </div>
-              {/* Barra 2 */}
-              <div className="group relative w-full flex flex-col items-center justify-end h-full">
-                <div className="w-full bg-indigo-100 rounded-t-lg h-[80%] group-hover:h-[90%] transition-all duration-500 relative overflow-hidden">
-                  <div className="absolute bottom-0 w-full bg-indigo-500 h-full origin-bottom transform scale-y-100 opacity-80"></div>
-                </div>
-                <span className="text-xs text-slate-400 mt-2 font-medium uppercase tracking-wider">
-                  Rendimiento
-                </span>
-              </div>
-              {/* Barra 3 */}
-              <div className="group relative w-full flex flex-col items-center justify-end h-full">
-                <div className="w-full bg-purple-100 rounded-t-lg h-[60%] group-hover:h-[70%] transition-all duration-500 relative overflow-hidden">
-                  <div className="absolute bottom-0 w-full bg-purple-500 h-full origin-bottom transform scale-y-100 opacity-80"></div>
-                </div>
-                <span className="text-xs text-slate-400 mt-2 font-medium uppercase tracking-wider">
-                  Usuarios
-                </span>
-              </div>
-            </div>
+        {/* Data flow */}
+        <section className="mb-20">
+          <div className="mb-10 text-center">
+            <h2 className="font-AktivBold! text-2xl text-text sm:text-3xl">
+              Data Flow
+            </h2>
+            <p className="mt-2 text-secondary-400">
+              Component &rarr; Hook &rarr; Query &rarr; Service &rarr;
+              Axios/API &mdash; how the Pokémon feature actually works.
+            </p>
           </div>
-        </div>
 
-        {/* Tech Stack Pills con Tooltips */}
-        <div className="mb-24 text-center">
-          <h2 className="text-2xl font-bold text-slate-900 mb-4">
-            Librerías del Sistema
-          </h2>
-          <p className="text-slate-500 mb-10 max-w-2xl mx-auto text-sm">
-            Pasa el cursor sobre cada tecnología para entender su propósito
-            dentro de nuestra arquitectura empresarial.
-          </p>
-
-          <div className="flex flex-wrap justify-center gap-4 max-w-5xl mx-auto">
-            {techStack.map((tech) => (
-              <div
-                key={tech.name}
-                className="group relative px-6 py-3 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-sm hover:border-indigo-400 hover:text-indigo-600 hover:shadow-md transition-all duration-200 cursor-help"
-              >
-                {tech.name}
-
-                {/* Tooltip con Tailwind puro */}
-                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-64 p-3 bg-slate-900 text-white text-xs text-center rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 shadow-xl pointer-events-none">
-                  <span className="font-bold text-indigo-300 block mb-1">
-                    {tech.name}
-                  </span>
-                  {tech.desc}
-                  {/* Flechita del tooltip */}
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-slate-900"></div>
+          <div className="flex flex-col items-stretch gap-3 rounded-2xl border border-secondary-200 bg-surface p-6 md:flex-row md:items-center md:justify-between">
+            {dataFlow.map((step, index) => (
+              <div key={step.label} className="flex items-center gap-3">
+                <div className="flex-1 rounded-lg bg-primary-100 px-4 py-3 text-center md:min-w-40">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-primary">
+                    {step.label}
+                  </p>
+                  <p className="mt-1 font-mono text-xs text-secondary-500">
+                    {step.detail}
+                  </p>
                 </div>
+                {index < dataFlow.length - 1 && (
+                  <FiArrowRight className="hidden h-5 w-5 shrink-0 text-secondary-300 md:block" />
+                )}
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
-        {/* Configuración de Entorno (Environment Variables) */}
-        <div className="mb-24 max-w-6xl mx-auto">
-          <div className="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-slate-200 relative overflow-hidden">
-            {/* Resplandor decorativo sutil de fondo */}
-            <div className="absolute top-0 right-0 -translate-y-12 translate-x-1/3 w-96 h-96 bg-emerald-50 rounded-full blur-[80px] pointer-events-none"></div>
+        {/* Features / Modules */}
+        <section className="mb-20">
+          <div className="mb-10 text-center">
+            <h2 className="font-AktivBold! text-2xl text-text sm:text-3xl">
+              Features &amp; Modules
+            </h2>
+            <p className="mt-2 text-secondary-400">
+              The working example this template ships with.
+            </p>
+          </div>
 
-            <div className="grid md:grid-cols-2 gap-12 items-center relative z-10">
-              <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-sm font-semibold tracking-wide mb-6 border border-emerald-200 shadow-sm cursor-default">
-                  ⚙️ Setup Inicial
+          <Link
+            href={mapRoutes.pokemon}
+            className="group flex flex-col justify-between gap-6 rounded-2xl border border-secondary-200 bg-surface p-8 transition-shadow hover:shadow-lg md:flex-row md:items-center"
+          >
+            <div>
+              <span className="inline-flex items-center gap-2 rounded-full bg-primary-100 px-3 py-1 text-xs font-semibold text-primary">
+                Live example
+              </span>
+              <h3 className="font-AktivBold! mt-4 text-xl text-text">
+                Pokémon
+              </h3>
+              <p className="mt-2 max-w-xl text-sm leading-relaxed text-secondary-500">
+                A debounced search against the PokeAPI, built end to end with
+                this template&rsquo;s conventions: service &rarr; query &rarr;
+                hook &rarr; module, plus success/error toast feedback wired
+                straight from the hook.
+              </p>
+            </div>
+            <span className="inline-flex items-center gap-2 self-start whitespace-nowrap text-sm font-semibold text-primary md:self-center">
+              Open /pokemon
+              <FiArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </span>
+          </Link>
+        </section>
+
+        {/* Getting started */}
+        <section className="mb-20">
+          <div className="grid grid-cols-1 gap-8 rounded-2xl border border-secondary-200 bg-surface p-8 md:grid-cols-2 md:p-10">
+            <div>
+              <h2 className="font-AktivBold! text-2xl text-text">
+                Getting Started
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-secondary-500">
+                Clone the repository, install dependencies, and start the dev
+                server.
+              </p>
+              <div className="mt-6 space-y-2 font-mono text-sm">
+                <div className="rounded-lg bg-background px-4 py-3 text-text">
+                  npm install
                 </div>
-                <h2 className="text-3xl font-bold text-slate-900 mb-5">
-                  Variables de Entorno
-                </h2>
-                <p className="text-slate-600 mb-4 leading-relaxed text-lg">
-                  Para levantar el proyecto sin errores, crea tu archivo de
-                  entorno en la raíz. Puedes usar la misma base para{' '}
-                  <code className="font-mono text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100">
-                    .env
-                  </code>
-                  ,{' '}
-                  <code className="font-mono text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100">
-                    .env.dev
-                  </code>{' '}
-                  o{' '}
-                  <code className="font-mono text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100">
-                    .env.qa
-                  </code>
-                  .
-                </p>
-                <p className="text-slate-500 text-sm leading-relaxed mb-6">
-                  ⚠️ <strong>Nota:</strong> El valor{' '}
-                  <code className="font-mono text-slate-700 font-bold">
-                    FORCE_PROXY='true'
-                  </code>{' '}
-                  es indispensable en desarrollo local para evitar problemas de
-                  CORS cuando apuntas al backend real.
-                </p>
-
-                <div className="text-sm text-slate-600 border-l-4 border-indigo-500 pl-4 py-1 bg-indigo-50/50 rounded-r-lg">
-                  Selecciona el código de la derecha, cópialo y completa los
-                  valores faltantes de tu Tenant.
+                <div className="rounded-lg bg-background px-4 py-3 text-text">
+                  npm run dev
                 </div>
               </div>
+              <p className="mt-4 text-sm text-secondary-400">
+                Then open{' '}
+                <code className="rounded bg-primary-100 px-1.5 py-0.5 text-primary">
+                  localhost:3000
+                </code>
+                .
+              </p>
+            </div>
 
-              {/* Mockup de Editor de Código */}
-              <div className="bg-[#0d1117] rounded-2xl border border-slate-700 shadow-2xl overflow-hidden group relative">
-                {/* Header del editor */}
-                <div className="bg-[#161b22] px-4 py-3 flex items-center justify-between border-b border-slate-700/50">
-                  <div className="flex gap-2">
-                    <div className="w-3 h-3 rounded-full bg-rose-500/80"></div>
-                    <div className="w-3 h-3 rounded-full bg-amber-500/80"></div>
-                    <div className="w-3 h-3 rounded-full bg-emerald-500/80"></div>
-                  </div>
-
-                  <span className="text-xs text-slate-400 font-mono tracking-wider">
-                    .env.dev
-                  </span>
-
-                  <div className="w-8"></div>
+            <div>
+              <h3 className="font-AktivBold! text-lg text-text">
+                Environment Configuration
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-secondary-500">
+                Copy{' '}
+                <code className="rounded bg-primary-100 px-1.5 py-0.5 text-primary">
+                  .env.example
+                </code>{' '}
+                to{' '}
+                <code className="rounded bg-primary-100 px-1.5 py-0.5 text-primary">
+                  .env.development
+                </code>{' '}
+                &mdash; the file Next.js actually loads in dev.
+              </p>
+              <div className="mt-4 space-y-2 font-mono text-xs">
+                <div className="flex items-center gap-2 rounded-lg bg-background px-3 py-2">
+                  <FiCheckCircle className="h-4 w-4 shrink-0 text-primary" />
+                  <span className="text-text">NEXT_PUBLIC_API_BASE_URL</span>
                 </div>
-
-                {/* Contenido del editor */}
-                <div className="p-6 overflow-x-auto text-sm font-mono leading-loose">
-                  <pre className="text-slate-300 select-all cursor-text whitespace-pre">
-                    <span className="text-blue-400">API_BASE_URL</span>=
-                    <span className="text-emerald-300">''</span>
-                    {'\n'}
-                    <span className="text-blue-400">
-                      STORAGE_ENCRYPTION_KEY
-                    </span>
-                    =
-                    <span className="text-emerald-300">
-                      'os5bnzHWonT9GwqW@h7wkH%kjnUt5q$xfSB49RzjF6ULejDBAv%JA!o$PgVrj^chuecoghXZRJ7o3K!v'
-                    </span>
-                    {'\n'}
-                    <span className="text-blue-400">FORCE_PROXY</span>=
-                    <span className="text-emerald-300">'true'</span>
-                    {'\n'}
-                    <span className="text-blue-400">AZURE_REDIRECT_URI</span>=
-                    <span className="text-emerald-300">
-                      'www.el-dominio.com'
-                    </span>
-                    {'\n'}
-                    <span className="text-blue-400">AZURE_TENANT_ID</span>=
-                    <span className="text-emerald-300">''</span>
-                    {'\n'}
-                    <span className="text-blue-400">AZURE_CLIENT_ID</span>=
-                    <span className="text-emerald-300">''</span>
-                    {'\n'}
-                    <span className="text-blue-400">AZURE_JWKS_URL</span>=
-                    <span className="text-emerald-300">
-                      'https://login.microsoftonline.com/&lt;TENANT_ID&gt;'
-                    </span>
-                  </pre>
+                <div className="flex items-center gap-2 rounded-lg bg-background px-3 py-2 text-secondary-400">
+                  <FiCheckCircle className="h-4 w-4 shrink-0 text-secondary-300" />
+                  <span>STORAGE_ENCRYPTION_KEY (not yet wired)</span>
+                </div>
+                <div className="flex items-center gap-2 rounded-lg bg-background px-3 py-2 text-secondary-400">
+                  <FiCheckCircle className="h-4 w-4 shrink-0 text-secondary-300" />
+                  <span>ENVIRONMENT (unused today)</span>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* Documentation Banner - Terminal Style */}
-        <div className="bg-slate-900 rounded-3xl p-1 relative overflow-hidden shadow-2xl">
-          <div className="bg-slate-800 rounded-[22px] p-8 md:p-12 relative z-10">
-            <div className="flex items-center gap-2 mb-6">
-              <div className="w-3 h-3 rounded-full bg-rose-500 shadow-[0_0_10px_rgba(244,63,94,0.5)]"></div>
-              <div className="w-3 h-3 rounded-full bg-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.5)]"></div>
-              <div className="w-3 h-3 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
+        {/* Commands - terminal style */}
+        <section>
+          <div className="overflow-hidden rounded-2xl border border-secondary-200 bg-black-500">
+            <div className="flex items-center gap-2 border-b border-black-400 px-5 py-3">
+              <span className="h-3 w-3 rounded-full bg-warning-red" />
+              <span className="h-3 w-3 rounded-full bg-warning-yellow" />
+              <span className="h-3 w-3 rounded-full bg-warning-green" />
+              <span className="ml-2 flex items-center gap-2 font-mono text-xs text-black-200">
+                <FiTerminal className="h-3.5 w-3.5" />
+                template
+              </span>
             </div>
-
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div>
-                <h3 className="text-2xl font-bold text-white mb-4">
-                  🛠️ Comandos de Desarrollo
-                </h3>
-                <p className="text-slate-300 mb-6 text-sm leading-relaxed">
-                  Para mantener el código limpio (Clean Code) hemos implementado
-                  reglas estrictas. Asegúrate de correr el{' '}
-                  <code className="text-indigo-300 bg-indigo-900/50 px-2 py-0.5 rounded">
-                    lint:strict
-                  </code>{' '}
-                  antes de cada PR.
-                </p>
-
-                <div className="space-y-3 font-mono text-sm">
-                  <div className="flex items-center gap-3 bg-slate-900 p-3 rounded-lg border border-slate-700">
-                    <span className="text-slate-500">~</span>
-                    <span className="text-emerald-400">
-                      npm run dev:localdev
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-3 bg-slate-900 p-3 rounded-lg border border-slate-700">
-                    <span className="text-slate-500">~</span>
-                    <span className="text-blue-400">npm run lint:strict</span>
-                  </div>
+            <div className="space-y-3 p-6 font-mono text-sm">
+              {commands.map((c) => (
+                <div key={c.cmd} className="flex flex-wrap items-baseline gap-3">
+                  <span className="text-black-200">$</span>
+                  <span className="text-warning-green">{c.cmd}</span>
+                  <span className="text-black-300">&mdash; {c.desc}</span>
                 </div>
-              </div>
-
-              <div className="bg-slate-900/50 p-6 rounded-xl border border-slate-700/50 backdrop-blur-sm">
-                <h4 className="text-indigo-300 font-semibold mb-2 flex items-center gap-2">
-                  <FiCheckCircle /> Capa de Calidad Activa
-                </h4>
-                <ul className="space-y-2 text-slate-400 text-sm">
-                  <li className="flex items-center gap-2">
-                    <span>✅</span> eslint-plugin-sonarjs (Code Smells)
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span>✅</span> eslint-plugin-unicorn (Mejores prácticas)
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span>✅</span> eslint-plugin-react-perf (Fugas de memoria)
-                  </li>
-                </ul>
-              </div>
+              ))}
             </div>
           </div>
-
-          <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/3 w-96 h-96 bg-indigo-500/20 rounded-full blur-[80px] pointer-events-none"></div>
-        </div>
+        </section>
       </div>
     </div>
   )

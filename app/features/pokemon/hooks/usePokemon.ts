@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import useDebounce from "~/shared/hooks/useDebounce";
+import { notifyToast } from "~/shared/utils/toast.utils";
 import { usePokemonQuery } from "../api/pokemon.querys";
 import type { IPokemon } from "../interfaces/pokemon.interfaces";
 
@@ -16,8 +17,14 @@ const usePokemon = (): PokemonReturn => {
 
     if (isError) {
       console.error(`Error loading Pokémon: ${debouncedSearch}`);
+      notifyToast(`Couldn't find "${debouncedSearch}"`, "error");
+      return;
     }
-  }, [isFetching, isError, debouncedSearch]);
+
+    if (isSuccess && data) {
+      notifyToast(`${data.name} loaded successfully`, "success");
+    }
+  }, [isFetching, isError, isSuccess, data, debouncedSearch]);
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);

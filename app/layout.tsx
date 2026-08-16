@@ -5,6 +5,7 @@ import "./styles/index.css";
 import StoreProvider from "./store/StoreProvider";
 import QueryClientProviderWrapper from "./shared/http/query-client.provider";
 import MainNav from "./shared/components/main-nav/MainNav";
+import ToastProvider from "./shared/components/toast-provider/ToastProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <QueryClientProviderWrapper>
             <MainNav />
             {children}
+            <ToastProvider />
           </QueryClientProviderWrapper>
         </StoreProvider>
       </body>
